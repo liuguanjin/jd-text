@@ -43,3 +43,4 @@ CREATE TABLE user (id int pramary key auto_increment,uname varchar(255),upwd var
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
