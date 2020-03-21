@@ -1,6 +1,6 @@
-# demo1
+# jd-text
 
-> A Vue.js project
+> 一个基于vue+vue-cli+vuex+vue-router+axios+less+express+mysql实现的模拟京东界面
 
 ## Build Setup
 
