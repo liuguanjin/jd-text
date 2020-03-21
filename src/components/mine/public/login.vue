@@ -95,6 +95,7 @@ export default {
 	 				}
 	 				if (isAllowLogin) {
 	 					that.$router.push("/logsuc");
+	 					that.$store.state.cart.isAllowLogin = true;
 	 				}
 	 			})
  			}

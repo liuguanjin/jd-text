@@ -75,8 +75,9 @@ export default{
 	display:flex;
 	flex-direction:row;
 	align-items:space-around;
+	height:1024px;
 	.left-content{
-		background-color:#f8f8f8;
+		background-color:#eee;
 		flex:2;
 		.content{
 			height:100%;
@@ -92,6 +93,7 @@ export default{
 		}
 	}
 	.detail-content{
+		background-color:#eee;
 		flex:6;
 		.content-classify{
 			h4{
@@ -107,9 +109,14 @@ export default{
 				li{
 					margin-right:2%;
 					width:30%;
+					background-color:#fff;
+					border-radius:8px;
+					margin-bottom:5px;
 					img{
+						margin-top:5px;
 						width:100%;
 						height:70%;
+						border-bottom:2px solid #f7f7f7;
 					}
 					p{
 						width:100%;

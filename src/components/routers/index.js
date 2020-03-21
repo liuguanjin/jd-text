@@ -11,6 +11,7 @@ import Regist from "../mine/public/regist.vue";
 import Registsuccess from "../mine/public/registSuccess.vue";
 import LoginSuccess from "../mine/public/loginSuccess.vue";
 import classifyDetail from "../classify/classify-detail.vue";
+import store from "../store"
 //配置routes
 var routes = [
 	{path:"/home",component:Home,meta:{title:"商城首页",keepAlive:true}},
@@ -33,6 +34,14 @@ var router = new VueRouter({
 router.beforeEach((to,from,next)=>{
 	document.title = to.meta.title;
 	next();
+	if (to.path == "/mine") {
+		var isAllowLogin = store.state.cart.isAllowLogin;
+		if (isAllowLogin) {
+			next("/logsuc");
+		}else{
+			next();
+		}
+	}
 });
 export default router;
 

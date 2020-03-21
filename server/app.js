@@ -10,7 +10,7 @@ var conn = mysql.createConnection({
 	host:"localhost",
 	user:"root",
 	password:"",
-	database:"mamall",
+	database:"mymall",
 	port:"3306"
 })
 //引入bodyparser模块
