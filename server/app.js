@@ -131,5 +131,3 @@ function md5(pwd){
 	md5.update(pwd + salt);
 	return md5.digest("hex");
 }
-
-
