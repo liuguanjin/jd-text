@@ -16,3 +16,4 @@ new Vue({
   store:store,
   render: h => h(App)
 })
+
