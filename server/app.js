@@ -2,7 +2,7 @@
 var express = require("express");
 var app = express();
 //监听3000端口
-app.listen(3000);
+app.listen(3301);
 //引入mysql数据库
 var mysql = require("mysql");
 //对数据库进行配置

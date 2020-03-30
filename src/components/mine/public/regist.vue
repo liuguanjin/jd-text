@@ -178,7 +178,7 @@ export default {
 	 				headers:{'content-type':'application/x-www-form-urlencoded'}
 	 			});
 	 			var that = this;
-	 			instance.post("http://localhost:3000/regist",qs.stringify({uname:that.uname,upwd:that.upwd})).then(result=>{
+	 			instance.post("http://localhost:3301/regist",qs.stringify({uname:that.uname,upwd:that.upwd})).then(result=>{
 	 				var msg = result.data.msg;
 	 				var isOk = result.data.isOk;
 	 				if (isOk) {
