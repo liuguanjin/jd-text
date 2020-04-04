@@ -3,5 +3,5 @@ export default{
 	total:0.00,
 	totalNum:0,
 	classifyData:[],
-	isAllowLogin:false
+	uname:""
 }

@@ -13,9 +13,34 @@
 <script>
 // 引入tabbar
 import tabbar from "./components/tabbar.vue";
+//使用vuex保存登录状态
+import {mapActions,mapState} from "vuex";
 export default {
   components:{
     "tabbar":tabbar
+  },
+  created(){
+    console.log(typeof(localStorage.getItem("uname")));
+    // 判断localstorage里是否有用户信息
+    if (localStorage.getItem("uname") === null) {
+        localStorage.setItem("uname","")
+    }else{
+      this.replaceUname(localStorage.getItem("uname"));
+    }
+    var that = this ;
+    window.addEventListener("beforeunload",()=>{
+      localStorage.setItem("uname",that.uname);
+    })
+  },
+  methods:{
+    ...mapActions({
+      replaceUname:"replaceUname"
+    })
+  },
+  computed:{
+    ...mapState({
+      uname:state => state.cart.uname
+    })
   }
 }
 </script>

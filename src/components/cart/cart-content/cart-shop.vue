@@ -2,39 +2,41 @@
 	<!-- 购物车中的商品列表 -->
   	<div class="cart-shop">
   		<!-- 商品列表 -->
-	  	<div class="shop-detail" v-for="(item,index) in shopArr">
-	  		<!-- 商家名称 -->
-	  		<div class="shop-title">
-	  			<!-- 商家选中图标 -->
-	  			<i :class="item.selOrCom?'icon-select':'icon-common'" @click="changeSelect(index)"></i>
-	  			<!-- 商家logo -->
-	  			<mu-icon value="all_inbox"></mu-icon>
-	  			<!-- 商店名 -->
-	  			<p>{{item.shopName}}</p>
-	  		</div>
-	  		<!-- 商品详情 -->
-	  		<div class="shop-box" v-for="(item,index1) in item.detail">
-	  			<!-- 商品选中图标 -->
-	  			<i :class="item.smlSelOrCom?'icon-select':'icon-common'" @click="changeSmlSelect(index,index1)"></i>
-	  			<!-- 商品图片 -->
-		  		<img :src="item.src" alt="">
-		  		<div class="shop-des">
-		  			<!-- 商品标题 -->
-		  			<p class="title">{{item.title}}</p>
-		  			<!-- 商品类型选择 -->
-		  			<p class="des">{{item.des}}</p>
-		  			<!-- 商品数量选择 -->
-		  			<div class="shop-num">
-		  				<p class="price">¥{{item.price}}</p>
-		  				<div class="addOrDel">
-				  			<mu-icon value="remove" @click="delNum(index,index1)"></mu-icon>
-				  			<p>{{item.num}}</p>
-				  			<mu-icon value="add" @click="addNum(index,index1)"></mu-icon>
-		  				</div>
-		  			</div>
+  		<div class="shop">
+		  	<div class="shop-detail" v-for="(item,index) in shopArr">
+		  		<!-- 商家名称 -->
+		  		<div class="shop-title">
+		  			<!-- 商家选中图标 -->
+		  			<i :class="item.selOrCom?'icon-select':'icon-common'" @click="changeSelect(index)"></i>
+		  			<!-- 商家logo -->
+		  			<mu-icon value="all_inbox"></mu-icon>
+		  			<!-- 商店名 -->
+		  			<p>{{item.shopName}}</p>
 		  		</div>
-	  		</div>
-	  	</div>
+		  		<!-- 商品详情 -->
+		  		<div class="shop-box" v-for="(item,index1) in item.detail">
+		  			<!-- 商品选中图标 -->
+		  			<i :class="item.smlSelOrCom?'icon-select':'icon-common'" @click="changeSmlSelect(index,index1)"></i>
+		  			<!-- 商品图片 -->
+			  		<img :src="item.src" alt="">
+			  		<div class="shop-des">
+			  			<!-- 商品标题 -->
+			  			<p class="title">{{item.title}}</p>
+			  			<!-- 商品类型选择 -->
+			  			<p class="des">{{item.des}}</p>
+			  			<!-- 商品数量选择 -->
+			  			<div class="shop-num">
+			  				<p class="price">¥{{item.price}}</p>
+			  				<div class="addOrDel">
+					  			<mu-icon value="remove" @click="delNum(index,index1)"></mu-icon>
+					  			<p>{{item.num}}</p>
+					  			<mu-icon value="add" @click="addNum(index,index1)"></mu-icon>
+			  				</div>
+			  			</div>
+			  		</div>
+		  		</div>
+		  	</div>
+  		</div>
 	  	<!-- 购物车全选结算 -->
 	  	<div class="cart-foor" v-if="isCal">
 	  		<div class="choose" @click="calculation()">
@@ -214,64 +216,67 @@ export default {
 				}
 			}
 		}
-		.shop-detail{
-			width:90%;
-			margin:0 auto;
-			background-color:#fff;
-			border-radius:15px;
-			margin-top:10px;
-			z-index:2;
-			.shop-title{
-				.flexRowCenter();
-				.mu-icon{
-					margin:0 3px;
-					color:gray;
-				}
-				p{
-					font-size:18px;
-					font-weight:600;
-				}
-			}
-			.shop-box{
-				.flexRowCenter();
-				.icon-common{
-					margin-left:10px;
-					margin-right:5px;
-				}
-				.icon-select{
-					margin-left:10px;
-					margin-right:5px;
-				}
-				img{
-					width:100px;
-					height:100px;
-				}
-				.shop-des{
-					margin:0 8px;
-					width:61%;
-					.flexColumnCenter();
-					.title{
-						font-size:14px;
-						height:40px;
-						line-height:20px;
-						overflow:hidden;
-						margin:0;
+		.shop{
+			margin-bottom:120px;
+			.shop-detail{
+				width:90%;
+				margin:0 auto;
+				background-color:#fff;
+				border-radius:15px;
+				margin-top:10px;
+				z-index:2;
+				.shop-title{
+					.flexRowCenter();
+					.mu-icon{
+						margin:0 3px;
+						color:gray;
 					}
-					.des{
-						width:100%;
-						background-color:#f7f7f7;
-						margin:5px 0;
+					p{
+						font-size:18px;
+						font-weight:600;
 					}
-					.shop-num{
-						width:100%;
-						margin:0;
-						.flexRowCenter();
-						justify-content:space-between;	
-						.price{
-							color:@mallColor;
+				}
+				.shop-box{
+					.flexRowCenter();
+					.icon-common{
+						margin-left:10px;
+						margin-right:5px;
+					}
+					.icon-select{
+						margin-left:10px;
+						margin-right:5px;
+					}
+					img{
+						width:100px;
+						height:100px;
+					}
+					.shop-des{
+						margin:0 8px;
+						width:61%;
+						.flexColumnCenter();
+						.title{
+							font-size:14px;
+							height:40px;
+							line-height:20px;
+							overflow:hidden;
+							margin:0;
 						}
-						.addOrDel{
+						.des{
+							width:100%;
+							background-color:#f7f7f7;
+							margin:5px 0;
+						}
+						.shop-num{
+							width:100%;
+							margin:0;
 							.flexRowCenter();
+							justify-content:space-between;	
+							.price{
+								color:@mallColor;
+							}
+							.addOrDel{
+								.flexRowCenter();
+							}
 						}
 					}
 				}

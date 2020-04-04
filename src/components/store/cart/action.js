@@ -49,5 +49,8 @@ export default{
 	},
 	classifyDetailData({commit},params){
 		commit("addData",params);
+	},
+	replaceUname({commit},params){
+		commit("changeUname",params);
 	}
 }

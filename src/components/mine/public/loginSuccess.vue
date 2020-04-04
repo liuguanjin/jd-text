@@ -3,12 +3,12 @@
   		<div class="logsuc-header">
   			<div class="head-top">
           <div class="head-img">
-  	  			<img :src="head" alt="">
+  	  			<img :src="avatar" alt="">
     				<p>{{nickname}}</p>
           </div>
 	  			<div class="iconbox">
 	  				<mu-icon value="perm_identity"></mu-icon>
-            <mu-icon value="settings"></mu-icon>
+            <mu-icon value="settings" @click="toSetting"></mu-icon>
 	  			</div>
   			</div>
   			<div  class="head-bottom">
@@ -101,12 +101,20 @@
 export default {
   data(){
     return{
-        head:"https://person-use.oss-cn-shenzhen.aliyuncs.com/images/mine-head/1.jpg",
+        avatar:"https://person-use.oss-cn-shenzhen.aliyuncs.com/images/mine-head/1.jpg",
         nickname:"请先设置昵称",
         favoritesNum:0,
         followNum:0,
         footprintNum:0,
         couponNum:0
+    }
+  },
+  created(){
+    
+  },
+  methods:{
+    toSetting(){
+      this.$router.push("/setting");
     }
   }
 }

@@ -161,5 +161,9 @@ export default{
 	},
 	addData(state,obj){
 		state.classifyData = obj;
+	},
+	// 如果localstorage中存在用户,则替换state中的uname
+	changeUname(state,obj){
+		state.uname = obj;
 	}
 }
