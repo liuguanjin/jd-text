@@ -79,6 +79,7 @@ app.post("/login",function(req,res){
 				res.send(obj);
 			}
 		}
+		conn.end();
 	})
 });
 //对regist界面的配置
@@ -121,6 +122,7 @@ app.post("/regist",function(req,res){
 				})
 			}
 		}
+		conn.end();
 	})
 });
 //对md5加密进行封装
