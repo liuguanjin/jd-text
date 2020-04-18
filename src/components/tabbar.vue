@@ -19,7 +19,8 @@ export default{
 	},
 	watch:{
 		$route(to,from){
-			var path = window.performance.navigation.type == 1?to.path:from.path;
+			// var path = window.performance.navigation.type == 1?from.path:to.path;
+			var path = to.path;
 			if (path == "/home" ||
 				path == "/classify" ||
 				path == "/cart" ||

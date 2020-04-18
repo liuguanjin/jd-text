@@ -146,18 +146,7 @@ export default{
 			}
 		}
 		state.cartArr = cartArr;
-	},
-	//删除商品的同时对总价的变化
-	afterMoveTotal(state){
-		var totalNum = 0;
-		var cartArr = state.cartArr;
-		for(var i = 0;i < cartArr.length; i ++ ){
-			var arr = cartArr[i].detail;
-			for(var j = 0;j < arr.length;j ++ ){
-				totalNum += arr[j].num * arr[j].price;
-			}
-		}
-		state.total = totalNum;
+		state.total = 0;
 	},
 	addData(state,obj){
 		state.classifyData = obj;

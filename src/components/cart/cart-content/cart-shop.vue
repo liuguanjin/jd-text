@@ -93,7 +93,6 @@ export default {
  			cartDelNum:"deleteNum",
  			cartAddNum:"addNum",
  			delShop:"popShop",
- 			moveTotal:"total",
  			shopNumTotal:"totalShopNum"
  		}),
  		changeSelect(index){
@@ -125,7 +124,6 @@ export default {
  		},
  		moveShop(){
  			this.delShop();
- 			this.moveTotal();
  			this.shopNumTotal();
  		}
  	}

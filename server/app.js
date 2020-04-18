@@ -5,14 +5,51 @@ var app = express();
 app.listen(3301);
 //引入mysql数据库
 var mysql = require("mysql");
-//对数据库进行配置
-var conn = mysql.createConnection({
-	host:"localhost",
-	user:"root",
-	password:"",
-	database:"mymall",
-	port:"3306"
-})
+// 创建MySql连接池并配置参数
+const mysqlConf = {
+    host:"localhost",  //ip或域名
+    user:"root",          //用户名
+    password:"", //密码
+    database:"mymall",   //数据库的名称
+    dateStrings: true
+};
+// 用于保存数据连接实例
+var db = null;
+var pingInterval;
+
+// 如果数据连接出错，则重新连接
+function handleError(err) {
+    logger.info(err.stack || err);
+    connect();
+}
+
+// 建立数据库连接
+function connect() {
+    if (db !== null) {
+        db.destroy();
+        db = null;
+    }
+
+    db = mysql.createConnection(mysqlConf);
+    db.connect(function (err) {
+        if (err) {
+            logger.info("error when connecting to db,reConnecting after 2 seconds:", err);
+            setTimeout(connect, 2000);
+        }
+    });
+    db.on("error", handleError);
+
+    // 每个小时ping一次数据库，保持数据库连接状态
+    clearInterval(pingInterval);
+    pingInterval = setInterval(() => {
+        db.ping((err) => {
+            if (err) {
+                console.log('ping error: ' + JSON.stringify(err));
+            }
+        });
+    }, 3600000);
+}
+connect();
 //引入bodyparser模块
 var bodyParser = require("body-parser");
 //对bodyparser解析json进行配置
@@ -44,7 +81,7 @@ app.post("/login",function(req,res){
 	//对用户名的sql查询语句
 	var sql = `select * from user where uname='${uname}'`;
 	//通过query连接数据库并传入sql查询语句得到data
-	conn.query(sql,function(error,data){
+	db.query(sql,function(error,data){
 		if(error){
 			//错误优先原则
 			throw new Exception(error);
@@ -79,7 +116,6 @@ app.post("/login",function(req,res){
 				res.send(obj);
 			}
 		}
-		conn.end();
 	})
 });
 //对regist界面的配置
@@ -93,7 +129,7 @@ app.post("/regist",function(req,res){
 	//对用户名的sql查询语句
 	var sql = [`select * from user where uname='${uname}'`,`insert into user (uname,upwd) value ('${uname}','${upwd}')`];
 	//通过query连接数据库并传入sql查询语句得到data
-	conn.query(sql[0],function(error1,data1){
+	db.query(sql[0],function(error1,data1){
 		if(error1){
 			//错误优先原则
 			throw new Exception(error1);
@@ -122,9 +158,9 @@ app.post("/regist",function(req,res){
 				})
 			}
 		}
-		conn.end();
 	})
 });
+
 //对md5加密进行封装
 function md5(pwd){
 	var salt = "adereererasdadfa";

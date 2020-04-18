@@ -20,7 +20,7 @@ export default {
     "tabbar":tabbar
   },
   created(){
-    console.log(typeof(localStorage.getItem("uname")));
+    // console.log(typeof(localStorage.getItem("uname")));
     // 判断localstorage里是否有用户信息
     if (localStorage.getItem("uname") === null) {
         localStorage.setItem("uname","")

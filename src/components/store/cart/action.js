@@ -43,10 +43,6 @@ export default{
 	popShop({commit}){
 		commit("moveShop");
 	},
-	//删除商品后的总价计算
-	total({commit}){
-		commit("afterMoveTotal");
-	},
 	classifyDetailData({commit},params){
 		commit("addData",params);
 	},

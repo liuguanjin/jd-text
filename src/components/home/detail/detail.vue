@@ -22,7 +22,7 @@
 						<mu-icon class="money" value="arrow_downward"></mu-icon>
 				  		<p>降价提醒</p>
 		  			</div>
-		  			<div>
+		  			<div @click="addToCollect">
 						<mu-icon class="money" value="collections"></mu-icon>
 		  				<p>收藏</p>
 		  			</div>
@@ -103,6 +103,11 @@
 		  		</div>
 			</div>
 		</div>
+		<!-- 加入购物车成功 -->
+		<div class="addToCartSuccess" v-show="isShowSuccess">
+			<mu-icon value="done_outline"></mu-icon>
+			<p>添加至购物车成功</p>
+		</div>
 	</div>
 </template>
 
@@ -122,7 +127,8 @@ export default {
  		shopName:"",
  		titleShow:true,
  		selOrCom:true,
- 		smlSelOrCom:true
+ 		smlSelOrCom:true,
+ 		isShowSuccess:false
  	}
  },
  computed:{
@@ -179,6 +185,9 @@ export default {
 		// 去购物车模块
 		this.$router.push("/cart");
 	},
+	addToCollect(){
+
+	},
 	addToCart(iconSrc,shopTitle,addDes,buyNum,shopPrice,shopName){
 		// 添加到购物车的判断
 		var isTo = true;
@@ -213,6 +222,12 @@ export default {
 		}
 		this.carculate(true);
 		this.shopNumTotal();
+		this.isShowSuccess = true;
+		this.isShowAddnum = false;
+		var that = this;
+		setTimeout(function(){
+			that.isShowSuccess = false;
+		},2000)
 	}
  }
 }
@@ -222,6 +237,28 @@ export default {
 @import url("../../less/common.less");
 	ul{
 		list-style:none;
+	}
+	.addToCartSuccess{
+		background-color:rgba(0,0,0,0.7);
+		border:1px solid rgba(255,255,255,0.7);
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-left:-50px;
+		margin-top:-50px;
+		.flexColumnCenter();
+		p{
+			margin:0 auto;
+			padding:0;
+			color:white;
+		}
+		.mu-icon{
+			color:white;
+			padding:10px;
+			border-radius:50%;
+			border:1px solid #fff;
+			font-size:16px;
+		}
 	}
 	.addnum-box{
 		margin:0 auto;
@@ -234,6 +271,7 @@ export default {
 		right:0;
 		background-color:rgba(0,0,0,0.7);
 		z-index:100;
+		transition:all 1s;
 		.addnum{
 			position:absolute;
 			bottom:0;
