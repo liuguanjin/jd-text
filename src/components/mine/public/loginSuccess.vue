@@ -12,8 +12,8 @@
 	  			</div>
   			</div>
   			<div  class="head-bottom">
-  				<div>
-  					<p>{{favoritesNum}}</p>
+  				<div @click="toCollect">
+  					<p>{{collectNum}}</p>
   					<p>收藏夹</p>
   				</div>
   				<div>
@@ -98,16 +98,21 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 export default {
   data(){
     return{
         avatar:"https://person-use.oss-cn-shenzhen.aliyuncs.com/images/mine-head/1.jpg",
         nickname:"请先设置昵称",
-        favoritesNum:0,
         followNum:0,
         footprintNum:0,
         couponNum:0
     }
+  },
+  computed:{
+    ...mapState({
+      collectNum:state => state.collect.collectNum
+    })
   },
   created(){
     
@@ -115,6 +120,9 @@ export default {
   methods:{
     toSetting(){
       this.$router.push("/setting");
+    },
+    toCollect(){
+      this.$router.push("/collect");
     }
   }
 }

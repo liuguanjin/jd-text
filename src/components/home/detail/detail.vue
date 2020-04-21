@@ -22,7 +22,7 @@
 						<mu-icon class="money" value="arrow_downward"></mu-icon>
 				  		<p>降价提醒</p>
 		  			</div>
-		  			<div @click="addToCollect">
+		  			<div @click="addToCollect(iconSrc,shopTitle,addDes,shopPrice,shopName)">
 						<mu-icon class="money" value="collections"></mu-icon>
 		  				<p>收藏</p>
 		  			</div>
@@ -92,9 +92,9 @@
 			  	<div class="addnum-count">
 			  		<p class="num-text">数量</p>
 			  		<div class="modify">
-			  			<mu-icon value="remove" @click="del"></mu-icon>
+			  			<mu-icon value="remove" @click="goodsDel"></mu-icon>
 			  			<p>{{buyNum}}</p>
-			  			<mu-icon value="add" @click="add"></mu-icon>
+			  			<mu-icon value="add" @click="goodsAdd"></mu-icon>
 			  		</div>
 			  	</div>
 		  		<div class="addnum-foot">
@@ -107,6 +107,18 @@
 		<div class="addToCartSuccess" v-show="isShowSuccess">
 			<mu-icon value="done_outline"></mu-icon>
 			<p>添加至购物车成功</p>
+		</div>
+		<div class="addToColSuccess" v-show="isShowCollectSuccess">
+			<mu-icon value="done_outline"></mu-icon>
+			<p>添加至收藏夹成功</p>
+		</div>
+		<div class="addToColFailed" v-show="isShowCollectFailed">
+			<mu-icon value="clear"></mu-icon>
+			<p>此商品已在收藏夹</p>
+		</div>
+		<div class="loginOrNot" v-show="noLogin">
+			<mu-icon value="clear"></mu-icon>
+			<p>请先登录</p>
 		</div>
 	</div>
 </template>
@@ -128,7 +140,10 @@ export default {
  		titleShow:true,
  		selOrCom:true,
  		smlSelOrCom:true,
- 		isShowSuccess:false
+ 		isShowSuccess:false,
+ 		isShowCollectSuccess:false,
+ 		isShowCollectFailed:false,
+ 		noLogin:false
  	}
  },
  computed:{
@@ -136,7 +151,9 @@ export default {
  		"cartNum":"allNum"
  	}),
  	...mapState({
- 		arr:state => state.cart.cartArr
+ 		arr:state => state.cart.cartArr,
+ 		collectArr:state => state.collect.collectArr,
+ 		uname:state =>state.cart.uname
  	})
  },
  created(){
@@ -155,7 +172,8 @@ export default {
  		increment:"inCrement",
  		increGoods:"inCreGoods",
  		carculate:"calculateAllMoney",
- 		shopNumTotal:"totalShopNum"
+ 		shopNumTotal:"totalShopNum",
+ 		addCollectGoods:"increCollectGoos"
  	}),
 	back(){
 		// 返回实现
@@ -169,7 +187,7 @@ export default {
 		// 商品加入购物车的隐藏
 		this.isShowAddnum = false;
 	},
-	del(){
+	goodsDel(){
 		// 商品数量减少
 		if (this.buyNum <= 1) {
 			this.buyNum = 1;
@@ -177,7 +195,7 @@ export default {
 			this.buyNum --;
 		}
 	},
-	add(){
+	goodsAdd(){
 		// 商品数量增加
 		this.buyNum ++;
 	},
@@ -185,8 +203,33 @@ export default {
 		// 去购物车模块
 		this.$router.push("/cart");
 	},
-	addToCollect(){
+	addToCollect(iconSrc,shopTitle,addDes,shopPrice,shopName){
+		var collectArr = this.collectArr;
+		var that = this;
+		if (this.uname == "") {
+			this.noLogin = true;
+			setTimeout(function(){
+				that.noLogin = false;
+			},2000)
+		}else{
+			var isInCollect = false;
+			for(var i = 0;i < collectArr.length;i ++ ){
+				if (collectArr[i].title == shopTitle) {
+					isInCollect = true;
+				}
+			}
+			if (!isInCollect) {
+				this.isShowCollectSuccess = true;
+				this.addCollectGoods({src:iconSrc,title:shopTitle,des:addDes,price:shopPrice,shopName:shopName})
+			}else{
+				this.isShowCollectFailed = true;
 
+			}
+			setTimeout(function(){
+				that.isShowCollectSuccess = false;
+				that.isShowCollectFailed = false;
+			},2000)
+		}
 	},
 	addToCart(iconSrc,shopTitle,addDes,buyNum,shopPrice,shopName){
 		// 添加到购物车的判断
@@ -239,6 +282,8 @@ export default {
 		list-style:none;
 	}
 	.addToCartSuccess{
+		width:120px;
+		height:100px;
 		background-color:rgba(0,0,0,0.7);
 		border:1px solid rgba(255,255,255,0.7);
 		position:absolute;
@@ -247,6 +292,7 @@ export default {
 		margin-left:-50px;
 		margin-top:-50px;
 		.flexColumnCenter();
+		justify-content:center;
 		p{
 			margin:0 auto;
 			padding:0;
@@ -257,6 +303,81 @@ export default {
 			padding:10px;
 			border-radius:50%;
 			border:1px solid #fff;
+			font-size:16px;
+		}
+	}
+	.addToColSuccess{
+		width:120px;
+		height:100px;
+		background-color:rgba(0,0,0,0.7);
+		border:1px solid rgba(255,255,255,0.7);
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-left:-50px;
+		margin-top:-50px;
+		.flexColumnCenter();
+		justify-content:center;
+		p{
+			margin:0 auto;
+			padding:0;
+			color:white;
+		}
+		.mu-icon{
+			color:white;
+			padding:10px;
+			border-radius:50%;
+			border:1px solid white;
+			font-size:16px;
+		}
+	}
+	.addToColFailed{
+		width:120px;
+		height:100px;
+		background-color:rgba(0,0,0,0.7);
+		border:1px solid rgba(255,255,255,0.7);
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-left:-50px;
+		margin-top:-50px;
+		.flexColumnCenter();
+		justify-content:center;
+		p{
+			margin:0 auto;
+			padding:0;
+			color:red;
+		}
+		.mu-icon{
+			color:red;
+			padding:10px;
+			border-radius:50%;
+			border:1px solid red;
+			font-size:16px;
+		}
+	}
+	.loginOrNot{
+		width:120px;
+		height:100px;
+		background-color:rgba(0,0,0,0.7);
+		border:1px solid rgba(255,255,255,0.7);
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-left:-50px;
+		margin-top:-50px;
+		.flexColumnCenter();
+		justify-content:center;
+		p{
+			margin:0 auto;
+			padding:0;
+			color:red;
+		}
+		.mu-icon{
+			color:red;
+			padding:10px;
+			border-radius:50%;
+			border:1px solid red;
 			font-size:16px;
 		}
 	}

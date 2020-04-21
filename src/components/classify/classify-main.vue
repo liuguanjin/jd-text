@@ -75,7 +75,7 @@ export default{
 	display:flex;
 	flex-direction:row;
 	align-items:space-around;
-	height:1024px;
+	height:100%;
 	.left-content{
 		background-color:#eee;
 		flex:2;

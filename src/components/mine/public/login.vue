@@ -52,6 +52,8 @@ export default {
  	created(){
  		// 生命周期方法
  		this.generateVerify();
+ 		this.uname="";
+		this.upwd="";
  	},
  	methods:{
  		login(){

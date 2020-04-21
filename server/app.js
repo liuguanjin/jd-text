@@ -144,7 +144,7 @@ app.post("/regist",function(req,res){
 				res.send(obj1);
 			}else{
 				//如果用户不存在即注册成功
-				conn.query(sql[1],function(error2,data2){
+				db.query(sql[1],function(error2,data2){
 					if(error2){
 						throw new Exception(error2);
 					}else{

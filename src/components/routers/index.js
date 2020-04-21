@@ -22,13 +22,14 @@ import Jingxi from "../home/jingxi/jingxi.vue";
 import Lingquan from "../home/lingquan/lingquan.vue";
 import Zhuangqian from "../home/zhuangqian/zhuangqian.vue";
 import Vip from "../home/vip/vip.vue";
+import Collect from "../mine/public/collect.vue";
 import store from "../store";
 //配置routes
 var routes = [
 	{path:"/home",component:Home,meta:{title:"商城首页",keepAlive:true}},
 	{path:"/classify",component:Classify,meta:{title:"商城分类",keepAlive:true}},
 	{path:"/cart",component:Cart,meta:{title:"购物车",keepAlive:true}},
-	{path:"/mine",component:Mine,meta:{title:"个人中心",keepAlive:true}},
+	{path:"/mine",component:Mine,meta:{title:"个人中心",keepAlive:false}},
 	{path:"/detail",component:Detail,name:"detail",meta:{title:"商品详情",keepAlive:false}},
 	{path:"/regist",component:Regist,meta:{title:"注册",keepAlive:false}},
 	{path:"/regses",component:Registsuccess,meta:{title:"注册成功",keepAlive:false}},
@@ -44,6 +45,7 @@ var routes = [
 	{path:"/zhuangqian",component:Zhuangqian,meta:{title:"赚钱",keepAlive:true}},
 	{path:"/vip",component:Vip,meta:{title:"PLUS会员",keepAlive:true}},
 	{path:"/setting",component:Setting,meta:{title:"设置",keepAlive:false}},
+	{path:"/collect",component:Collect,meta:{title:"收藏夹",keepAlive:false}},
 	{path:"/classify-detail",component:classifyDetail,meta:{title:"分类详情",keepAlive:false}},
 	{path:"/",redirect:"/home"}
 ];

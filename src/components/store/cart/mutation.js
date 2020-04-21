@@ -148,11 +148,16 @@ export default{
 		state.cartArr = cartArr;
 		state.total = 0;
 	},
+	//分类详情数据
 	addData(state,obj){
 		state.classifyData = obj;
 	},
 	// 如果localstorage中存在用户,则替换state中的uname
 	changeUname(state,obj){
 		state.uname = obj;
+	},
+	//如果localStorage中存在购物车信息，则替换state中的cartArr
+	changeCartArr(state,obj){
+		state.cartArr = obj;
 	}
 }
