@@ -163,6 +163,14 @@ export default {
  	this.shopPrice = this.$route.query.price;
  	this.addDes = this.$route.query.des;
  	this.shopName = this.$route.query.shopName;
+ 	var date = new Date();
+ 	let y = date.getFullYear();
+	let m = date.getMonth()+1;
+	m = m < 10 ? "0" + m : m;
+	let d = date.getDate();
+	d = d < 10 ? "0" + d : d;
+	date = y + "-" + m + "-" + d;
+ 	this.addToFootprint({date:date,detail:[{src:this.iconSrc,title:this.shopTitle,des:this.addDes,price:this.shopPrice,shopName:this.shopName}]})
  },
  components:{
  	"my-head":myHead
@@ -173,7 +181,8 @@ export default {
  		increGoods:"inCreGoods",
  		carculate:"calculateAllMoney",
  		shopNumTotal:"totalShopNum",
- 		addCollectGoods:"increCollectGoos"
+ 		addCollectGoods:"increCollectGoos",
+ 		addToFootprint:"addToFootprint"
  	}),
 	back(){
 		// 返回实现

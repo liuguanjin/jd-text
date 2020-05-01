@@ -181,7 +181,10 @@ export default {
 	 			instance.post("http://www.liuguanjin.top:3301/regist",qs.stringify({uname:that.uname,upwd:that.upwd})).then(result=>{
 	 				var msg = result.data.msg;
 	 				var isOk = result.data.isOk;
-	 				if (isOk) {
+	 				if (!isOk) {
+		 				that.uanmePrompt = msg;
+		 				that.show = true;
+	 				}else{
 	 					that.$router.push({path:"/regses"});
 	 				}
 	 			})

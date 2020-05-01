@@ -73,6 +73,9 @@ export default {
  	leave(){
  		localStorage.removeItem("uname");
  		this.$store.state.cart.uname = "";
+ 		this.$store.state.cart.cartArr = [];
+ 		this.$store.state.cart.total = 0;
+ 		this.$store.state.cart.totalNum = 0;
  		this.$router.push("/mine");
  	}
  }

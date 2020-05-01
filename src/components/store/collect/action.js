@@ -4,5 +4,8 @@ export default{
 	},
 	replaceCollectArr({commit},params){
 		commit("changeCollectArr",params);
+	},
+	replaceCollectNum({commit},params){
+		commit("changeCollectNum",params);
 	}
 }

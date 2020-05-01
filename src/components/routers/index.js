@@ -23,6 +23,7 @@ import Lingquan from "../home/lingquan/lingquan.vue";
 import Zhuangqian from "../home/zhuangqian/zhuangqian.vue";
 import Vip from "../home/vip/vip.vue";
 import Collect from "../mine/public/collect.vue";
+import Foot from "../mine/public/foot.vue";
 import store from "../store";
 //配置routes
 var routes = [
@@ -46,6 +47,7 @@ var routes = [
 	{path:"/vip",component:Vip,meta:{title:"PLUS会员",keepAlive:true}},
 	{path:"/setting",component:Setting,meta:{title:"设置",keepAlive:false}},
 	{path:"/collect",component:Collect,meta:{title:"收藏夹",keepAlive:false}},
+	{path:"/foot",component:Foot,meta:{title:"足迹",keepAlive:false}},
 	{path:"/classify-detail",component:classifyDetail,meta:{title:"分类详情",keepAlive:false}},
 	{path:"/",redirect:"/home"}
 ];

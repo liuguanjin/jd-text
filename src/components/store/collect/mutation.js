@@ -5,5 +5,8 @@ export default{
 	},
 	changeCollectArr(state,obj){
 		state.collectArr = obj;
+	},
+	changeCollectNum(state,obj){
+		state.collectNum = obj;
 	}
 }
