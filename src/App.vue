@@ -92,13 +92,10 @@ export default {
           }
         }
         instance.post("http://localhost:3301/addcart",qs.stringify({cartArr:arr,uname:that.uname})).then(result=>{
-          console.log(result.data);
         })
         instance.post("http://localhost:3301/addcollect",qs.stringify({collectArr:that.collectArr,uname:that.uname})).then(result=>{
-          console.log(result.data);
         })
         instance.post("http://localhost:3301/addfootprint",qs.stringify({footprintArr:footprintArr,uname:that.uname})).then(result=>{
-          console.log(result.data);
         })
       }
     })

@@ -11,6 +11,7 @@ const mysqlConf = {
     user:"root",          //用户名
     password:"", //密码
     database:"mymall",   //数据库的名称
+    port:"3306",
     dateStrings: true,
     multipleStatements:true
 };
@@ -244,7 +245,6 @@ app.post("/addcart",function(req,res){
 							//错误优先原则
 							throw new Exception(error2);
 						}else{
-							console.log(buyNum);
 							if (data2.length == 0) {
 								var sql3 = `insert into cart (GOODID,userID,BUYNUM) value ('${goodId}','${userId}','${buyNum}')`
 								db.query(sql3,function(error3,data3){
@@ -252,7 +252,7 @@ app.post("/addcart",function(req,res){
 										//错误优先原则
 										throw new Exception(error3);
 									}else{
-										console.log("新的一个商品已加入购物车")
+										// console.log("新的一个商品已加入购物车")
 									}
 								})
 							}else if(data2[0]["BUYNUM"] != buyNum){
@@ -262,11 +262,11 @@ app.post("/addcart",function(req,res){
 										//错误优先原则
 										throw new Exception(error4);
 									}else{
-										console.log("购物车商品数量已刷新");
+										// console.log("购物车商品数量已刷新");
 									}
 								})
 							}else{
-								console.log("该商品已在购物车");
+								// console.log("该商品已在购物车");
 							}
 						}
 					})
@@ -353,11 +353,11 @@ app.post("/addcollect",function(req,res){
 									//错误优先原则
 									throw new Exception(error3);
 								}else{
-									console.log("新的一个商品已加入收藏夹")
+									// console.log("新的一个商品已加入收藏夹")
 								}
 							})
 						}else{
-							console.log("该商品已在收藏夹");
+							// console.log("该商品已在收藏夹");
 						}
 					}
 				})
@@ -367,6 +367,7 @@ app.post("/addcollect",function(req,res){
 })
 //如果用户已登录，将足迹内容同步至前端
 app.post("/footprint",function(req,res){
+	console.log("footprint");
 	var params = req.body;
 	var uname = params.uname;
 	var sql1 = `select * from user where uname='${uname}'`;
@@ -424,9 +425,29 @@ app.post("/footprint",function(req,res){
 //如果用户已登录，刷新或关闭网页时将此时足迹的内容同步至数据库
 app.post("/addfootprint",function(req,res){
 	var params = req.body;
-	var footprintArr = params.footprintArr;
-	for(var i = 0;i < footprintArr.length;i ++ ){
-		
+	var footprintArr = params.footprintArr || [];
+	var uname = params.uname;
+	for(var o = 0;o < footprintArr.length;o ++ ){
+		var date = footprintArr[o].date;
+		var detail = footprintArr[o].detail;
+		for(var j = 0;j < detail.length;j ++ ){
+			detail[j] = JSON.parse(detail[j]);
+			var title = detail[j].title.split(detail[j].des);
+			var sql1 = `select * from goods where GOODTITLE='${title[0]}';select * from user where uname='${uname}'`;
+			db.query(sql1,function(error1,data1){
+				if (error1) {
+					throw new Exception(error1);
+				}else{
+					var goodId = data1[0][0]["GOODID"];
+					var userId = data1[1][0]["id"];
+					var goodIdArr = [];
+					console.log(goodId);
+					console.log(userId);
+					// console.log(typeof(goodId));
+					// goodIdArr.push();
+				}
+			})
+		}
 	}
 })
 //对md5加密进行封装
